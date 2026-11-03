@@ -76,8 +76,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
         run: |
           ls -l dist
           gh release create "$TAG" dist/elvinluff.pdf \
+            --repo "$REPO" \
             --title "$TAG" \
             --generate-notes
