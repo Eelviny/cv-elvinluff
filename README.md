@@ -1,19 +1,16 @@
-CV of Elvin Luff
-================
+# CV of Elvin Luff
 
-Source for my CV, built with the AltaCV class. AltaCV lives in the `AltaCV/`
-submodule; this repository only holds my own content, so pulling upstream
-template changes is a submodule bump and nothing else.
+Because every CV needs a proper production release, with versioning and CI/CD.
+You can grab the latest copy over on the [Releases](https://github.com/Eelviny/cv-elvinluff/releases) page.
 
-Layout
-------
+I'm all about putting energy into my strengths, and I won't claim that graphic design
+makes the top of the list. The CV design itself is based on [AltaCV](https://github.com/liantze/AltaCV),
+which is included as a git submodule.
 
-    elvinluff.tex   the CV itself (content + styling)
-    avatar.jpg      photo used by \photoR
-    AltaCV/         submodule -> https://github.com/liantze/AltaCV (branch main)
+Everything else in this repository is my own, and is what I do best. I follow the K.I.S.S. principle religiously.
 
-Building
---------
+
+## Building
 
     make            # -> elvinluff.pdf (2 pages, A4)
     make clean      # remove build artifacts and the PDF
@@ -30,38 +27,50 @@ With XeLaTeX or LuaLaTeX (see the `\iftutex` branch in the preamble):
 No TeX on the host? Build in the TeX Live container:
 
     docker run --rm -v "$PWD":/w -w /w -e TEXINPUTS=/w/AltaCV: \
-      texlive/texlive:latest-medium bash -c '
-        tlmgr option repository https://ftp.fau.de/ctan/systems/texlive/tlnet >/dev/null 2>&1
-        tlmgr install pdfx xmpincl accsupp simpleicons fontawesome5 paracol lato roboto \
-          collection-latexextra collection-fontsrecommended >/dev/null 2>&1
-        latexmk -pdf -g -interaction=nonstopmode elvinluff.tex'
+      texlive/texlive:latest-full make
 
-(the `medium` scheme lacks `pdfx`/`xmpincl`/`tcolorbox`, hence the `tlmgr` step;
-add `-g` to latexmk or it will report "nothing to do" after a failed run).
+## CI
 
-Checking a build
-----------------
+`.github/workflows/build.yml` builds the PDF on every push to `main`, on pull
+requests, and on demand, then uploads it as the `cv-elvinluff` artifact (30-day
+retention).
 
-    grep -n '^!' elvinluff.log        # must print nothing
-    grep -c 'Overfull\|Underfull' elvinluff.log   # expect ~12, don't let it jump
-    pdfinfo elvinluff.pdf | grep -E 'Pages|Page size'   # 2 pages, A4
-    pdftotext elvinluff.pdf - | head    # text must be selectable
+Get the artifact from the run page: Actions -> Build CV -> run -> Artifacts.
 
-Updating the template
----------------------
+Releasing
+
+
+    git tag v1
+    git push origin v1
+
+Pushing a `v*` tag builds the PDF and publishes a release named after the tag with
+`elvinluff.pdf` attached (release notes generated from the commits). The `release`
+job runs only for `refs/tags/v*`, takes the artifact from the `build` job, and needs
+`contents: write` — granted at job level, while the workflow default stays read-only.
+
+Bump the tag for a new release; re-pushing an existing tag fails because that
+release already exists (`gh release upload "$TAG" dist/elvinluff.pdf --clobber`
+updates the asset instead).
+
+The `release` job cannot be replayed with `act`: act's runner image has no `gh`
+binary, while GitHub-hosted runners ship it preinstalled. Locally the build and
+artifact steps are what you can verify.
+
+### Running the same pipeline locally
+
+`act` (https://github.com/nektos/act) executes the workflow on your machine:
+
+    act push -W .github/workflows/build.yml --artifact-server-path /tmp/act-art
+
+    unzip -o /tmp/act-art/1/cv-elvinluff/cv-elvinluff.zip -d /tmp/cv
+    pdfinfo /tmp/cv/elvinluff.pdf
+
+To skip the workflow and just run the build step it contains:
+
+    docker run --rm -v "$PWD":/w -w /w -e TEXINPUTS=/w/AltaCV: \
+      texlive/texlive:latest-full make
+
+## Updating the template
 
     git submodule update --remote AltaCV   # pull the latest AltaCV
     git add AltaCV && git commit -m "Bump AltaCV"
-
-If a class upgrade renames macros, the CV stops compiling: diff
-`AltaCV/sample.tex` against `elvinluff.tex` and port the preamble. The last
-such upgrade (v1.7.4) changed `\ifxetexorluatex` -> `\iftutex`,
-`\itemmarker`/`\ratingmarker` -> `\cvItemMarker`/`\cvRatingMarker`, and moved
-the pdflatex fonts to `[rm]{roboto}` + `[defaultsans]{lato}`.
-
-Cloning this repository elsewhere
----------------------------------
-
-    git clone --recurse-submodules <url>
-    # or, if already cloned:
-    git submodule update --init --recursive
