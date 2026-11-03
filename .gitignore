@@ -1,0 +1,44 @@
+# LaTeX build artifacts
+*.aux
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.lof
+*.lot
+*.lol
+*.loa
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.glg
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.xmpi
+*-SAVE-ERROR
+
+# Compiled CV
+elvinluff.pdf
+
+# Editor and OS cruft
+*.swp
+*.swo
+*~
+.DS_Store
+.idea/
+.vscode/
