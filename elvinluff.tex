@@ -1,0 +1,207 @@
+%%%%%%%%%%%%%%%%%
+% CV of Elvin Luff, built on altacv.cls v1.7.4 (30 July 2025)
+% This file follows the current AltaCV template API.
+% Compiles with pdfLaTeX, XeLaTeX and LuaLaTeX.
+%%%%%%%%%%%%%%%%%
+
+%% If you need to pass whatever options to xcolor
+\PassOptionsToPackage{dvipsnames}{xcolor}
+
+%% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
+% \documentclass[10pt,a4paper,withhyper,normalphoto]{altacv}
+
+\documentclass[10pt,a4paper,ragged2e,withhyper]{altacv}
+%% AltaCV uses the fontawesome5 and simpleicons packages.
+%% See http://texdoc.net/pkg/fontawesome5 and http://texdoc.net/pkg/simpleicons for full list of symbols.
+%% The academicons option is obsolete since v1.4: \faOrcid is available in fontawesome5
+%% and works in all engines, so the XeLaTeX-only workaround is no longer needed.
+
+% Change the page layout if you need to
+\geometry{left=1.25cm,right=1.25cm,top=1.5cm,bottom=1.5cm,columnsep=1.2cm}
+
+% The paracol package lets you typeset columns of text in parallel
+\usepackage{paracol}
+
+% Change the font if you want to, depending on whether
+% you're using pdflatex or xelatex/lualatex
+% WHEN COMPILING WITH XELATEX PLEASE USE
+% xelatex -shell-escape -output-driver="xdvipdfmx -z 0" elvinluff.tex
+\iftutex
+  % If using xelatex or lualatex:
+  \setmainfont{Roboto Slab}
+  \setsansfont{Lato}
+  \renewcommand{\familydefault}{\sfdefault}
+\else
+  % If using pdflatex:
+  \usepackage[rm]{roboto}
+  \usepackage[defaultsans]{lato}
+  \renewcommand{\familydefault}{\sfdefault}
+\fi
+
+% Change the colours if you want to
+\definecolor{DarkGrey}{HTML}{0a0a0a}
+\definecolor{LightGrey}{HTML}{666666}
+\definecolor{AquaBlue}{HTML}{38b0de}
+\colorlet{name}{black}
+\colorlet{tagline}{AquaBlue}
+\colorlet{heading}{black}
+\colorlet{headingrule}{black}
+\colorlet{subheading}{AquaBlue}
+\colorlet{accent}{AquaBlue}
+\colorlet{emphasis}{black}
+\colorlet{body}{DarkGrey}
+
+% Change some fonts, if necessary
+\renewcommand{\namefont}{\Huge\bfseries}
+\renewcommand{\personalinfofont}{\footnotesize}
+\renewcommand{\cvsectionfont}{\LARGE\bfseries}
+\renewcommand{\cvsubsectionfont}{\large\bfseries}
+
+
+% Change the bullets for itemize and rating marker for \cvskill if you want to
+\renewcommand{\cvItemMarker}{{\small\textbullet}}
+\renewcommand{\cvRatingMarker}{\faCircle}
+% ...and the markers for the date/location of \cvevent
+% \renewcommand{\cvDateMarker}{\faCalendar*[regular]}
+% \renewcommand{\cvLocationMarker}{\faMapMarker*}
+
+% If your CV/résumé is in a language other than English, change these so that
+% copy-pasting (or pdftotext) the date/location markers yields the right word.
+% \renewcommand{\locationname}{Ubicación}
+% \renewcommand{\datename}{Fecha}
+
+\begin{document}
+\name{Elvin Luff}
+\tagline{DevOps (Infrastructure) Engineer}
+
+\photoR{2.2cm}{avatar}
+
+\personalinfo{%
+  % Not all of these are required!
+  \email{elvin@eelviny.me}
+  \phone{+31683009556}
+  \location{Amsterdam, NL}
+  \homepage{eelviny.me}
+  \linkedin{elvinluff}
+  \github{eelviny}
+  % \twitter{@handle}
+  % \xtwitter{@handle}
+  % \orcid{0000-0000-0000-0000}
+  %% You can add your own arbitrary detail with
+  %% \printinfo{symbol}{detail}[optional hyperlink prefix]
+  % \printinfo{\faPaw}{Hey ho!}[https://example.com/]
+  %% Or you can declare your own field with
+  %% \NewInfoField{fieldname}{symbol}[optional hyperlink prefix] and use it:
+  % \NewInfoField{gitlab}{\faGitlab}[https://gitlab.com/]
+  % \gitlab{your_id}
+  %% For platforms where the ID and the URL don't follow a regular pattern,
+  %% use the starred form and pass the full link as the second argument:
+  % \NewInfoField*{mastodon}{\faMastodon}
+  % \mastodon{@username@instance}{https://instance.url/@username}
+}
+
+\makecvheader
+%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
+% \AtBeginEnvironment{itemize}{\small}
+
+%% Set the left/right column width ratio to 6:4.
+\columnratio{0.6}
+
+% Start a 2-column paracol. Both the left and right columns will automatically
+% break across pages if things get too long.
+\begin{paracol}{2}
+\cvsection{Experience}
+
+\cvevent{IT Specialist}{Measuremen}{Feb 2018 -- Present}{Amsterdam}
+\begin{itemize}
+\item Certified AWS Solutions Architect solely responsible for maintaining and securing all critical internal systems, with a focus on data security of sensitive workplace data for a global corporate client base.
+\item Experience in an Agile Scrum environment as Product Owner within a remote working software development team.
+\item Researched, designed and implemented smart building IoT solutions for installation in client workplaces, with a focus on architecting data pipelines in AWS through Kinesis streams, RDS and Redshift.
+\item Reduced AWS expenditure by over 40\% through implementing auto scaling across legacy applications, utilising EC2 spot instances for spare capacity, and shifting core or infrequently used components to Serverless.
+\item Designing and implementing Gitlab CI/CD pipelines for both Serverless and Docker containerised javascript/typescript workloads.
+\item AWS networking \& security expertise, transforming VPCs into CloudFormation templates with all access controls specified and documented in code.
+\end{itemize}
+
+\cvevent{Measuremen+}{Measuremen}{Nov 2017 -- Feb 2018}{Amsterdam}
+\begin{itemize}
+\item Junior Systems Administrator implementing a company-wide Active Directory infrastructure for all company devices.
+\item Help Desk duties handling and routing all internal IT requests, account management and first response on critical issues.
+\end{itemize}
+
+\divider
+
+\cvevent{IT Ambassador}{Friends of St Michaels Uganda}{Jan 2014 -- Apr 2018}{}
+\begin{itemize}
+\item Maintained an online presence for a charity supporting a school and community in Uganda.
+\item Equipped and configured a complete computer room with old laptops running Lubuntu. Experience configuring and installing Ubiquiti AirMAX equipment.
+\end{itemize}
+
+\divider
+
+\cvevent{Owner}{vox.land}{Nov 2012 -- Jul 2014}{}
+\begin{itemize}
+\item Experience with OVH services, growing into a network of dedicated database, website and game servers.
+\item Managing a team of 20 volunteers, from developers to community managers. Using a free-to-play subscription based model my success was demonstrated by amassing over two thousand players of all ages.
+\end{itemize}
+
+% use ONLY \newpage if you want to force a page break for
+% ONLY the current column
+
+%% Switch to the right column. This will now automatically move to the second
+%% page if the content is too long.
+\switchcolumn
+
+\cvsection{About Me}
+
+{As a cloud solutions architect and devops engineer, I focus on leveraging the latest developments in AWS and Google Cloud.}\break\break
+{I have a solid set of technical skills while also bridging the communications gap between the business and technology; I have intimate knowledge of Javascript and Node.js for serverless \& containers, and an advanced knowledge of AWS services with 2 ½ years experience in building from the ground up for the cloud.}\break\break
+{My passion is optimising systems for the elasticity of the cloud; to provide a cost-effective, reliable and highly scalable solution, enabling data-driven businesses to grow.}\break\break
+{Outside the office you'll find me tinkering with my bicycles, starting many unnecessary DIY projects around the house and improving my cooking skills. Tips would be appreciated!}\break
+
+\cvsection{Courses}
+
+\cvachievement{\faAmazon}{AWS Certified Solutions Architect}{Associate}
+
+\divider
+
+\cvachievement{\faAmazon}{AWS Certified Security}{Specialty}
+
+\cvsection{Skills}
+
+\cvtag{Solutions Architect}
+\cvtag{Backend JS Developer}
+\cvtag{Product Owner}
+\cvtag{Systems Administrator}
+\cvtag{CI/CD}
+\cvtag{Data Architect}
+\cvtag{Google Cloud}
+\cvtag{AWS}
+\cvtag{Linux}
+\cvtag{RHEL}
+\cvtag{DevOps Engineer}
+
+\cvsection{Languages}
+
+\cvskill{English}{5}
+\divider
+
+\cvskill{Dutch}{3}
+\divider
+
+\cvskill{German}{1}
+
+%% Yeah I didn't spend too much time making all the
+%% spacing consistent... sorry. Use \smallskip, \medskip,
+%% \bigskip, \vspace etc to make adjustments.
+\medskip
+
+\cvsection{References}
+
+% \cvref{name}{email}{mailing address}
+{Available on request.}
+
+
+\end{paracol}
+
+
+\end{document}
